@@ -7,6 +7,10 @@
     @apply bg-light-850 dark:bg-dark-100;
   }
 
+  .text-light900_dark100 {
+    @apply text-light-900 dark:text-dark-100;
+  }
+
   .background-light900_dark200 {
     @apply bg-light-900 dark:bg-dark-200;
   }
@@ -176,8 +180,7 @@
   }
 
   .placeholder {
-    @apply placeholder: text-light-400 dark:placeholder:text-light-500;
-    /* @apply placeholder-light-400 dark:placeholder-light-500; */
+    @apply placeholder:text-light-400 dark:placeholder:text-light-500;
   }
 
   .invert-colors {
