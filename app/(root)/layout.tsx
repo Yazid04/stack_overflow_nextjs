@@ -2,6 +2,7 @@ import Navbar from '@/components/shared/navbar/Navbar'
 import React from 'react'
 
 import '../../globals.css'
+import '../../styles/prism.css'
 import '../../styles/theme.css'
 import LeftSideBar from '@/components/shared/LeftSideBar'
 import RightSideBar from '@/components/shared/RightSideBar'
