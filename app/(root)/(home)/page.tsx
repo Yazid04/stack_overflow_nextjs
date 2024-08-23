@@ -1,19 +1,49 @@
-// import QuestionCard from "@/components/cards/QuestionCard";
-// import HomeFilters from "@/components/home/HomeFilters";
 import QuestionCard from '@/components/cards/QuestionCard'
 import HomeFilters from '@/components/home/HomeFilters'
 import Filter from '@/components/shared/Filter'
 import NoResult from '@/components/shared/NoResult'
+import Pagination from '@/components/shared/Pagination'
 import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
-// import NoResult from "@/components/shared/NoResult";
-// import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from '@/components/ui/button'
 import { HomePageFilters } from '@/constants/filters'
-import { getQuestions } from '@/lib/actions/question.action'
+import {
+  getQuestions,
+  getRecommendedQuestions,
+} from '@/lib/actions/question.action'
+import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+import { auth } from '@clerk/nextjs/server'
 
-export default async function Home() {
-  const result = await getQuestions({})
+export const metadata: Metadata = {
+  title: 'Home | Dev Overflow',
+}
+
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const { userId } = auth()
+
+  let result
+
+  if (searchParams?.filter === 'recommended') {
+    if (userId) {
+      result = await getRecommendedQuestions({
+        userId,
+        searchQuery: searchParams.q,
+        page: searchParams.page ? +searchParams.page : 1,
+      })
+    } else {
+      result = {
+        questions: [],
+        isNext: false,
+      }
+    }
+  } else {
+    result = await getQuestions({
+      searchQuery: searchParams.q,
+      filter: searchParams.filter,
+      page: searchParams.page ? +searchParams.page : 1,
+    })
+  }
 
   return (
     <>
@@ -44,32 +74,37 @@ export default async function Home() {
       </div>
 
       <HomeFilters />
-      {
-        <div className="mt-10 flex w-full flex-col gap-6">
-          {result.questions.length > 0 ? (
-            result.questions.map((question) => (
-              <QuestionCard
-                key={question._id}
-                _id={question._id}
-                title={question.title}
-                tags={question.tags}
-                author={question.author}
-                upvotes={question.upvotes}
-                views={question.views}
-                answers={question.answers}
-                createdAt={question.createdAt}
-              />
-            ))
-          ) : (
-            <NoResult
-              title="There’s no question to show"
-              description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
-              link="/ask-question"
-              linkTitle="Ask a Question"
+
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
+            <QuestionCard
+              key={question._id}
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
             />
-          )}
-        </div>
-      }
+          ))
+        ) : (
+          <NoResult
+            title="There’s no question to show"
+            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
+            link="/ask-question"
+            linkTitle="Ask a Question"
+          />
+        )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
+      </div>
     </>
   )
 }
