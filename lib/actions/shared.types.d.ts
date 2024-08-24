@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose'
 
 import { IUser } from '@/mongodb'
+import Tag from '@/database/tag.model'
 
 export interface CreateAnswerParams {
   content: string
@@ -156,4 +157,9 @@ export interface GetUserStatsParams {
 
 export interface DeleteUserParams {
   clerkId: string
+}
+
+export interface GetAllTagsResult {
+  tags: Tag[]
+  isNext: boolean
 }

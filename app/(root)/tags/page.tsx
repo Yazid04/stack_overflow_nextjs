@@ -1,18 +1,38 @@
+'use client'
+import { useState, useEffect } from 'react'
 import Filter from '@/components/shared/Filter'
 import NoResult from '@/components/shared/NoResult'
 import Pagination from '@/components/shared/Pagination'
 import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
 import { TagFilters } from '@/constants/filters'
 import { getAllTags } from '@/lib/actions/tag.action'
+import { GetAllTagsResult } from '@/lib/actions/shared.types'
 import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
+import Loading from './loading'
 
-const Page = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getAllTags({
-    searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
-  })
+const Page = ({ searchParams }: SearchParamsProps) => {
+  const [loading, setLoading] = useState(true)
+  const [result, setResult] = useState<GetAllTagsResult | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      const data = await getAllTags({
+        searchQuery: searchParams.q,
+        filter: searchParams.filter,
+        page: searchParams.page ? +searchParams.page : 1,
+      })
+      setResult(data)
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [searchParams])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <>
@@ -34,8 +54,8 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       </div>
 
       <section className="mt-12 flex flex-wrap gap-4">
-        {result.tags.length > 0 ? (
-          result.tags.map((tag) => (
+        {(result?.tags?.length ?? 0) > 0 ? (
+          result?.tags.map((tag) => (
             <Link
               href={`/tags/${tag._id}`}
               key={tag._id}
@@ -70,7 +90,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
       <div className="mt-10">
         <Pagination
           pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
+          isNext={result?.isNext || false}
         />
       </div>
     </>

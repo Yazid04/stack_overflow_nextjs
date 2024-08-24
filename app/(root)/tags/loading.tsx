@@ -1,64 +1,25 @@
-import QuestionCard from '@/components/cards/QuestionCard'
-import NoResult from '@/components/shared/NoResult'
-import Pagination from '@/components/shared/Pagination'
-import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
-import { getQuestionsByTagId } from '@/lib/actions/tag.action'
-import { URLProps } from '@/types'
+import { Skeleton } from '@/components/ui/skeleton'
 
-const Page = async ({ params, searchParams }: URLProps) => {
-  const result = await getQuestionsByTagId({
-    tagId: params.id,
-    page: searchParams.page ? +searchParams.page : 1,
-    searchQuery: searchParams.q,
-  })
-
+const Loading = () => {
   return (
-    <>
-      <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
+    <section>
+      <h1 className="h1-bold text-dark100_light900">Tags</h1>
 
-      <div className="mt-11 w-full">
-        <LocalSearchBar
-          route={`/tags/${params.id}`}
-          iconPosition="left"
-          imgSrc="/assets/icons/search.svg"
-          placeholder="Search tag questions"
-          otherClasses="flex-1"
-        />
+      <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
+        <Skeleton className="h-14 flex-1" />
+        <Skeleton className="h-14 w-28" />
       </div>
 
-      <div className="mt-10 flex w-full flex-col gap-6">
-        {result.questions.length > 0 ? (
-          result.questions.map((question: any) => (
-            <QuestionCard
-              key={question._id}
-              _id={question._id}
-              title={question.title}
-              tags={question.tags}
-              author={question.author}
-              upvotes={question.upvotes}
-              views={question.views}
-              answers={question.answers}
-              createdAt={question.createdAt}
-            />
-          ))
-        ) : (
-          <NoResult
-            title="There’s no tag question saved to show"
-            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
-            link="/ask-question"
-            linkTitle="Ask a Question"
+      <div className="flex flex-wrap gap-4">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+          <Skeleton
+            key={item}
+            className="h-60 w-full rounded-2xl sm:w-[260px]"
           />
-        )}
+        ))}
       </div>
-
-      <div className="mt-10">
-        <Pagination
-          pageNumber={searchParams?.page ? +searchParams.page : 1}
-          isNext={result.isNext}
-        />
-      </div>
-    </>
+    </section>
   )
 }
 
-export default Page
+export default Loading
