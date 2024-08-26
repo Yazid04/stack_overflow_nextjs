@@ -22,7 +22,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const UserCard = dynamic(() => import('@/components/cards/UserCard'), {
     ssr: false,
   })
-  // console.log(result.isLoading)
   if (result.isLoading) {
     return <Loading />
   }
