@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Badge } from '../ui/badge'
 import RenderTag from '../shared/RenderTag'
+import Tag from '@/database/tag.model'
 
 interface Props {
   user: {
@@ -15,7 +16,12 @@ interface Props {
 }
 
 const UserCard = async ({ user }: Props) => {
-  const interactedTags = await getTopInteractedTags({ userId: user._id })
+  const interactedTagsIDs = await getTopInteractedTags({ userId: user._id })
+  const interactedTags = []
+  for (const element of interactedTagsIDs) {
+    const tag = await Tag.findById({ _id: element })
+    interactedTags.push(tag)
+  }
 
   return (
     <Link

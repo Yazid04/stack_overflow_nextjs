@@ -21,6 +21,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const UserCard = dynamic(() => import('@/components/cards/UserCard'), {
     ssr: false,
   })
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">All Users</h1>

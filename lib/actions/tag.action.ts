@@ -10,6 +10,7 @@ import {
 import Tag, { ITag } from '@/database/tag.model'
 import Question from '@/database/question.model'
 import { FilterQuery } from 'mongoose'
+import Interaction from '@/database/interaction.model'
 
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
@@ -23,11 +24,25 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 
     // Find interactions for the user and group by tags...
     // Interaction...
+    const tagsList = []
+    const userTags = await Interaction.find({
+      user: userId,
+      action: 'ask_question',
+    })
 
-    return [
-      { _id: '1', name: 'tag' },
-      { _id: '2', name: 'tag2' },
-    ]
+    for (let i = 0; i < userTags.length; i++) {
+      const element = userTags[i]
+      for (let k = 0; k < element.tags.length; k++) {
+        const tag = element.tags[k]
+        tagsList.push(tag)
+      }
+    }
+
+    // console.log(tagsList)
+
+    return tagsList
+    //  { _id: '1', name: 'tag' },
+    //  { _id: '2', name: 'tag2' },
   } catch (error) {
     console.log(error)
     throw error
@@ -131,6 +146,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
 export async function getTopPopularTags() {
   try {
     connectToDatabase()
+    await Tag.deleteMany({ questions: { $size: 0 } })
 
     const popularTags = await Tag.aggregate([
       { $project: { name: 1, numberOfQuestions: { $size: '$questions' } } },

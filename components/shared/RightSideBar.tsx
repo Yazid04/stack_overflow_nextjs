@@ -39,16 +39,15 @@ const RightSidebar = async () => {
         <div className="mt-7 flex flex-col gap-4">
           {popularTags.map(
             // THIS IS A TEMPORARY FIX
-            (tag) =>
-              tag.numberOfQuestions > 0 && (
-                <RenderTag
-                  key={tag._id}
-                  _id={tag._id}
-                  name={tag.name}
-                  totalQuestions={tag.numberOfQuestions}
-                  showCount
-                />
-              )
+            (tag) => (
+              <RenderTag
+                key={tag._id}
+                _id={tag._id}
+                name={tag.name}
+                totalQuestions={tag.numberOfQuestions}
+                showCount
+              />
+            )
           )}
         </div>
       </div>
