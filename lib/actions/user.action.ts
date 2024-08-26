@@ -98,7 +98,9 @@ export async function deleteUser(params: DeleteUserParams) {
 }
 
 export async function getAllUsers(params: GetAllUsersParams) {
+  let isLoading = true
   try {
+    isLoading = true
     connectToDatabase()
 
     const { searchQuery, filter, page = 1, pageSize = 10 } = params
@@ -141,8 +143,8 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     const totalUsers = await User.countDocuments(query)
     const isNext = totalUsers > skipAmount + users.length
-
-    return { users, isNext }
+    isLoading = false
+    return { users, isNext, isLoading }
   } catch (error) {
     console.log(error)
     throw error

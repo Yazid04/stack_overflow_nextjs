@@ -7,6 +7,7 @@ import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import Loading from './Loading'
 
 export const metadata: Metadata = {
   title: 'Community | Dev Overflow',
@@ -21,6 +22,10 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
   const UserCard = dynamic(() => import('@/components/cards/UserCard'), {
     ssr: false,
   })
+  // console.log(result.isLoading)
+  if (result.isLoading) {
+    return <Loading />
+  }
 
   return (
     <>
