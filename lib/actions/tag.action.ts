@@ -41,8 +41,6 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
     // console.log(tagsList)
 
     return tagsList
-    //  { _id: '1', name: 'tag' },
-    //  { _id: '2', name: 'tag2' },
   } catch (error) {
     console.log(error)
     throw error
