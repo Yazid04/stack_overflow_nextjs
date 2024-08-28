@@ -15,12 +15,18 @@ DevOverflow is a sophisticated platform inspired by the functionality of StackOv
 ## Features
 
 ### Home Page
+
+![Home Page](./constants/screenshots/homepage_dark.png) ![Home Page](./constants/screenshots/homepage_light.png)
+
 - **Sign Up/Sign In**: Users can create an account or log in using their credentials.
-- **Search**: Search for questions locally within the platform.
+- **Search**: Search for questions locally within the any page.
 - **Filters**: Sort questions by "Newest", "Recommended", "Frequent", "Unanswered".
 - **Light/Dark Mode**: Switch between light and dark themes.
 
 ### Ask-a-Question Page
+
+![Ask a question](./constants/screenshots/ask_question_dark.png)
+
 - **Post Questions**: Users can ask questions and provide detailed descriptions.
 - **Answer Questions**: Users can contribute by answering others' questions.
 - **Tags**: Add relevant tags to questions and answers.
@@ -28,16 +34,28 @@ DevOverflow is a sophisticated platform inspired by the functionality of StackOv
 - **Code Blocks**: Support for code snippets in any programming language.
 
 ### Community Page
+
+![Community Page](./constants/screenshots/community_page_dark.png)
+
 - **User Search**: Search for active users on the platform.
 - **Filters**: Filter users by "New Users", "Old Users", "Top Contributors".
 
 ### Collections Page
+
+![Collections Page](./constants/screenshots/collections_page_dark.png)
+
 - **Saved Questions**: View and manage a list of all questions saved by the user.
 
 ### Tag Page
+
+![Tag Page](./constants/screenshots/tag_page_dark.png)
+
 - **Tag Management**: View and manage the tags the user has used.
 
 ### Profile Page
+
+![Profile Page](./constants/screenshots/profile_page_dark.png)
+
 - **Profile Editing**: Customize personal information and settings.
 - **Badges System**: Earn Bronze, Silver, or Gold Badges based on platform activity.
 - **Popular Content**: View currently popular questions and tags.
@@ -63,17 +81,21 @@ To get started with DevOverflow, follow these steps:
 ### Steps
 
 1. **Clone the repository**:
+
    ```bash
-   git clone https://github.com/your-username/DevOverflow.git
+   git clone https://github.com/Yazid04/stack_overflow_nextjs.git
    cd DevOverflow
    ```
 
 2. **Install dependencies**:
    Using npm:
+
    ```bash
    npm install
    ```
+
    Using yarn:
+
    ```bash
    yarn install
    ```
@@ -83,10 +105,13 @@ To get started with DevOverflow, follow these steps:
 
 4. **Run the application**:
    For development:
+
    ```bash
    npm run dev
    ```
+
    or
+
    ```bash
    yarn dev
    ```
@@ -135,4 +160,4 @@ The project prioritizes easy-to-scale, reusable, and clear code. Ensure to:
 
 ## Contact
 
-For any inquiries or feedback, feel free to reach out at [your-email@example.com].
+For any inquiries or feedback, feel free to reach out at [yazidramadan04@gmail.com].
