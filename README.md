@@ -42,7 +42,7 @@ DevOverflow is a sophisticated platform inspired by the functionality of StackOv
 
 ### Collections Page
 
-![Collections Page](./constants/screenshots/collections_page.png)
+![Collections Page](./constants/screenshots/collections_page_dark.png)
 
 - **Saved Questions**: View and manage a list of all questions saved by the user.
 
@@ -55,7 +55,6 @@ DevOverflow is a sophisticated platform inspired by the functionality of StackOv
 ### Profile Page
 
 ![Profile Page](./constants/screenshots/profile_page_dark.png)
-![Profile Page mobile view](./constants/screenshots/profile_page_dark_mobile.png)
 
 - **Profile Editing**: Customize personal information and settings.
 - **Badges System**: Earn Bronze, Silver, or Gold Badges based on platform activity.
